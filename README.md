@@ -21,7 +21,7 @@ Made with [Cursor](https://cursor.com).
 
 ## Features
 
--   **Isometric Rendering Engine**: Rendering with HTML5 Canvas (`CanvasIsometricGrid`) capable of handling complex depth sorting, layer management, and both image and drawn sprites.
+-   **Isometric Rendering Engine**: Rendering with HTML5 Canvas (`CanvasIsometricGrid`) capable of handling complex depth sorting, layer management, and both image and canvas sprites.
 -   **Dynamic Simulation**:
     -   **Traffic System**: Autonomous vehicles including cars, trains, planes, buses, and seaplanes.
     -   **Trains, bridges, buses, barges, and more**: Vehicles will navigate throughout your city and respect traffic lights.
