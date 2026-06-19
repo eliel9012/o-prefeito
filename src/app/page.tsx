@@ -14,8 +14,8 @@ import { LanguageSelector } from '@/components/ui/LanguageSelector';
 import { T } from 'gt-next';
 import { Users, X } from 'lucide-react';
 
-const STORAGE_KEY = 'isocity-game-state';
-const SAVED_CITIES_INDEX_KEY = 'isocity-saved-cities-index';
+const STORAGE_KEY = 'oprefeito-game-state';
+const SAVED_CITIES_INDEX_KEY = 'oprefeito-saved-cities-index';
 
 // Background color to filter from sprite sheets (red)
 const BACKGROUND_COLOR = { r: 255, g: 0, b: 0 };
@@ -314,7 +314,7 @@ function SavedCityCard({ city, onLoad, onDelete }: { city: SavedCityMeta; onLoad
   );
 }
 
-const SAVED_CITY_PREFIX = 'isocity-city-';
+const SAVED_CITY_PREFIX = 'oprefeito-city-';
 
 export default function HomePage() {
   const [showGame, setShowGame] = useState(false);
@@ -477,9 +477,14 @@ export default function HomePage() {
           <div className="flex-shrink-0 h-4 sm:h-8" />
           
           {/* Title - smaller on very small screens */}
-          <h1 className="text-4xl sm:text-5xl font-light tracking-wider text-white/90 mb-4 sm:mb-6 flex-shrink-0">
-            IsoCity
-          </h1>
+          <div className="flex flex-col items-center flex-shrink-0 mb-4 sm:mb-6">
+            <h1 className="text-4xl sm:text-5xl font-light tracking-wider text-white/90">
+              O Prefeito
+            </h1>
+            <p className="text-xs sm:text-sm text-white/40 tracking-widest uppercase mt-1">
+              Simulador de Cidade Brasileira
+            </p>
+          </div>
           
           {/* Sprite Gallery - smaller on mobile, contained */}
           <div className="mb-4 sm:mb-6 flex-shrink-0">
@@ -593,9 +598,14 @@ export default function HomePage() {
           
           {/* Left - Title and Start Button */}
           <div className="flex flex-col items-center lg:items-start justify-center space-y-12">
-            <h1 className="text-8xl font-light tracking-wider text-white/90">
-              IsoCity
-            </h1>
+            <div className="flex flex-col">
+              <h1 className="text-8xl font-light tracking-wider text-white/90">
+                O Prefeito
+              </h1>
+              <p className="text-base text-white/40 tracking-widest uppercase mt-2">
+                Simulador de Cidade Brasileira
+              </p>
+            </div>
             <div className="flex flex-col gap-3">
               <Button 
                 onClick={() => setShowGame(true)}

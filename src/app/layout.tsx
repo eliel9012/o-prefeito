@@ -22,22 +22,22 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL('https://iso-city.com'),
   title: {
-    default: 'ISOCITY — Metropolis Builder',
-    template: 'ISOCITY — %s',
+    default: 'O Prefeito — Simulador de Cidade Brasileira',
+    template: 'O Prefeito — %s',
   },
-  description: 'A richly detailed isometric city builder. Build your metropolis and manage resources with cars, planes, helicopters, boats, trains, citizens, and more.',
+  description: 'Construa, governe e sobreviva à política municipal brasileira. Um simulador isométrico de cidade com orçamento municipal, eventos brasileiros e muito mais.',
   openGraph: {
-    title: 'ISOCITY — Metropolis Builder',
-    description: 'A richly detailed isometric city builder. Build your metropolis and manage resources with cars, planes, helicopters, boats, trains, citizens, and more.',
+    title: 'O Prefeito — Simulador de Cidade Brasileira',
+    description: 'Construa, governe e sobreviva à política municipal brasileira. Um simulador isométrico de cidade com orçamento municipal, eventos brasileiros e muito mais.',
     type: 'website',
-    siteName: 'IsoCity',
+    siteName: 'O Prefeito',
     images: [
       {
         url: '/opengraph-image.png',
         width: 1179,
         height: 1406,
         type: 'image/png',
-        alt: 'ISOCITY - Isometric city builder game screenshot'
+        alt: 'O Prefeito - Simulador de Cidade Brasileira'
       }
     ],
   },
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'IsoCity'
+    title: 'O Prefeito'
   },
   formatDetection: {
     telephone: false
