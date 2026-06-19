@@ -4,6 +4,39 @@ Registre aqui todas as alterações feitas por agentes.
 
 ---
 
+## 2026-06-19 — Milestone 4: Eventos municipais brasileiros
+
+Modelo/agente usado: claude-sonnet-4-6 (Claude Code)
+
+Arquivos criados:
+- `src/lib/eventosBrasileiros.ts` — 8 eventos com probabilidade e condição; `sortearEventosMensais()` sorteia máx 2/mês
+- `src/hooks/useEventosBrasileiros.ts` — hook que detecta virada de mês e dispara notificações
+
+Arquivos alterados:
+- `src/components/Game.tsx` — import + chamada de `useEventosBrasileiros()`
+
+Eventos implementados:
+buraco_na_rua (55%), enchente (30% verão), obra_parada (35% caixa<5k),
+licitacao_emergencial (25%), camara_pressiona (40% happiness<45),
+ministerio_publico_recomenda (18% saúde<60%), crise_saneamento (28% água<50%),
+fiscalizacao_ambiental (20% ambiente<35)
+
+Como testar:
+```bash
+npm run dev
+# Iniciar jogo → aumentar velocidade → aguardar virada de mês
+# Notificações aparecem no canto com ícone e descrição do evento
+```
+
+Build/lint:
+- `npm run build` — PASSOU
+
+Limitações:
+- Eventos são somente informativos (sem efeito na simulação)
+- `lgpd_municipal` não implementado ainda
+
+---
+
 ## 2026-06-19 — Milestone 3: Sistema de orçamento municipal brasileiro
 
 Modelo/agente usado: claude-sonnet-4-6 (Claude Code)

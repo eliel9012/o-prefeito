@@ -47,16 +47,16 @@
 - [ ] Adicionar popularidade do prefeito.
 - [ ] Adicionar painel mensal simplificado.
 
-### Milestone 4 — Eventos brasileiros
-- [ ] Criar evento `buraco_na_rua`.
-- [ ] Criar evento `enchente`.
-- [ ] Criar evento `licitacao_atrasada`.
-- [ ] Criar evento `obra_parada`.
-- [ ] Criar evento `ministerio_publico_recomenda`.
-- [ ] Criar evento `camara_pressiona`.
-- [ ] Criar evento `crise_saneamento`.
-- [ ] Criar evento `fiscalizacao_ambiental`.
-- [ ] Criar evento `lgpd_municipal`.
+### Milestone 4 — Eventos brasileiros (2026-06-19)
+- [x] Criar evento `buraco_na_rua`.
+- [x] Criar evento `enchente` (condição: meses de verão).
+- [x] Criar evento `licitacao_emergencial`.
+- [x] Criar evento `obra_parada` (condição: caixa baixo).
+- [x] Criar evento `ministerio_publico_recomenda` (condição: saúde < 60%).
+- [x] Criar evento `camara_pressiona` (condição: happiness < 45).
+- [x] Criar evento `crise_saneamento` (condição: água < 50%).
+- [x] Criar evento `fiscalizacao_ambiental` (condição: ambiente < 35).
+- [ ] Criar evento `lgpd_municipal` (futuro).
 
 ### Milestone 5 — Empacotamento macOS/Tauri
 - [ ] Verificar compatibilidade com static export.
