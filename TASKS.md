@@ -58,13 +58,15 @@
 - [x] Criar evento `fiscalizacao_ambiental` (condição: ambiente < 35).
 - [ ] Criar evento `lgpd_municipal` (futuro).
 
-### Milestone 5 — Empacotamento macOS/Tauri
-- [ ] Verificar compatibilidade com static export.
-- [ ] Adicionar Tauri.
-- [ ] Configurar `frontendDist`.
-- [ ] Gerar app icon provisório.
-- [ ] Testar `tauri dev` no Mac.
-- [ ] Testar `tauri build` no Mac.
+### Milestone 5 — Empacotamento macOS/Tauri (2026-06-19)
+- [x] Verificar compatibilidade com static export → INCOMPATÍVEL (middleware + gt-next + rotas dinâmicas).
+- [x] Adicionar Tauri (`@tauri-apps/cli 2.11.3` devDependency).
+- [x] `npx tauri init` → `src-tauri/` gerado.
+- [x] Configurar `tauri.conf.json`: identifier, janela 1280x800, devUrl, scripts npm.
+- [x] Ícones provisórios em `src-tauri/icons/` (gerados pelo tauri init).
+- [x] `MACOS_TAURI_PLAN.md` atualizado com achados e plano de distribuição.
+- [ ] Testar `tauri dev` no Mac (requer Rust + macOS).
+- [ ] Implementar Next.js standalone sidecar para distribuição real.
 
 ### Milestone 6 — Pipeline Higgsfield (assets brasileiros)
 - [ ] Criar log de assets gerados.

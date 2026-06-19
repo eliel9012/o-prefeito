@@ -1,65 +1,74 @@
 # macOS/Tauri Plan
 
-## Objetivo
+## Status atual
 
-Empacotar o jogo como app macOS usando Tauri.
+- `@tauri-apps/cli 2.11.3` instalado (devDependency)
+- `src-tauri/` inicializado com `npx tauri init`
+- `src-tauri/tauri.conf.json` configurado (identifier, window size)
+- Scripts npm: `tauri:dev`, `tauri:build`, `tauri`
 
-## Por que Tauri
+## Fluxo de desenvolvimento (tauri dev)
 
-O projeto já é web/Next/React/Canvas. Tauri permite empacotar uma aplicação web como app desktop com menor peso do que Electron.
-
-## Tarefas
-
-1. Confirmar que o app funciona como frontend estático.
-2. Ajustar `next.config.mjs` ou `next.config.ts`:
-
-```js
-const nextConfig = {
-  output: 'export',
-  images: {
-    unoptimized: true,
-  },
-};
-
-export default nextConfig;
-```
-
-3. Confirmar que `npm run build` gera a pasta `out`.
-4. Instalar Tauri:
+Funciona **sem** static export:
 
 ```bash
-npm install -D @tauri-apps/cli
-npm run tauri init
+# Terminal 1 (ou deixar o Tauri chamar via beforeDevCommand)
+npm run dev
+
+# Terminal 2
+npm run tauri:dev
 ```
 
-5. Configurar `src-tauri/tauri.conf.json`:
+O Tauri abre webview apontando para `http://localhost:3000`.
+Rust precisa estar instalado: https://rustup.rs
+
+## Por que static export não funciona
+
+O app usa:
+- Middleware Next.js (`src/proxy.ts`) → não suportado em static export
+- Rotas dinâmicas sem `generateStaticParams` (`/coop/[roomCode]`)
+- `gt-next` com server components e locale detection
+- `@vercel/analytics` com server hooks
+
+`output: 'export'` em `next.config.js` quebraria essas features.
+
+## Plano de distribuição (build real — macOS)
+
+### Opção A: Next.js standalone + sidecar Node (recomendado para MVP)
+
+1. Adicionar ao `next.config.js`:
+   ```js
+   output: 'standalone'
+   ```
+2. `npm run build` gera `.next/standalone/`
+3. Tauri usa `shell` sidecar para iniciar o servidor Node embutido
+4. Webview aponta para `http://localhost:3000`
+5. Mais complexo mas mantém todas as features
+
+### Opção B: Separar frontend estático (refatoração futura)
+
+Extrair a parte do jogo como SPA pura sem dependência de server features.
+Permite `output: 'export'` e distribuição simples via `frontendDist`.
+
+## tauri.conf.json atual
 
 ```json
-{
-  "build": {
-    "beforeDevCommand": "npm run dev",
-    "beforeBuildCommand": "npm run build",
-    "devUrl": "http://localhost:3000",
-    "frontendDist": "../out"
-  }
-}
+identifier: "br.com.oprefeito.app"
+window: 1280x800, min 1024x700
+devUrl: "http://localhost:3000"
+frontendDist: "../out"  ← só funciona com Opção B
 ```
 
-6. Definir metadata:
+## Próximos passos no Mac
 
-- productName: `O Prefeito`
-- identifier: `br.com.saberlegal.oprefeito` ou `br.com.elieljunior.oprefeito`
-- version: `0.1.0`
+1. Instalar Rust: `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
+2. `cd /path/to/o-prefeito && npm install`
+3. `npm run tauri:dev` — testa fluxo de desenvolvimento
+4. Para distribuição: implementar Opção A (standalone sidecar)
+5. Ícone final: substituir `src-tauri/icons/` com arte brasileira
+6. Notarização e assinatura: fora do escopo MVP
 
-7. Testar:
+## Ícones provisórios
 
-```bash
-npm run tauri dev
-npm run tauri build
-```
-
-## Atenção
-
-- Build macOS deve ser feito em macOS.
-- Notarização e assinatura ficam fora do MVP.
-- Salvar/carregar precisa ser testado dentro do app empacotado.
+Gerados pelo `tauri init` em `src-tauri/icons/`.
+Substituir antes de distribuição pública com arte de "O Prefeito".

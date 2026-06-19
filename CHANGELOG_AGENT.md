@@ -4,6 +4,36 @@ Registre aqui todas as alterações feitas por agentes.
 
 ---
 
+## 2026-06-19 — Milestone 5: Setup Tauri para macOS
+
+Modelo/agente usado: claude-sonnet-4-6 (Claude Code)
+
+Arquivos criados:
+- `src-tauri/` — estrutura Tauri gerada por `npx tauri init`
+- `src-tauri/tauri.conf.json` — configurado (identifier, janela 1280x800, devUrl, scripts)
+
+Arquivos alterados:
+- `package.json` — `@tauri-apps/cli 2.11.3` devDependency + scripts tauri:dev / tauri:build
+- `.gitignore` — ignorar `src-tauri/target/`
+- `MACOS_TAURI_PLAN.md` — achados sobre static export + plano distribuição (Opção A: standalone sidecar)
+
+Achados:
+- Static export INCOMPATÍVEL com o app atual (middleware proxy.ts, gt-next, rotas dinâmicas)
+- `tauri dev` funciona via devUrl → aponta para `npm run dev` rodando
+- Para distribuição: implementar Next.js `output: 'standalone'` + sidecar Tauri
+
+Como testar (no Mac com Rust instalado):
+```bash
+npm install
+npm run tauri:dev
+```
+
+Build/lint:
+- `npm run build` (Next.js) — PASSOU
+- `tauri build` requer Rust + macOS — não testado no Pi
+
+---
+
 ## 2026-06-19 — Milestone 4: Eventos municipais brasileiros
 
 Modelo/agente usado: claude-sonnet-4-6 (Claude Code)
