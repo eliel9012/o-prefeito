@@ -18,14 +18,25 @@
 - [x] Renomear `name` no `package.json` para `o-prefeito`.
 - [x] Build confirmado pós-rebranding.
 
+### Milestone 2 — Locale PT-BR e UI (2026-06-17)
+- [x] Definir locale padrão como `pt-BR` no `gt.config.json`.
+- [x] Traduzir strings visíveis: metadata coop, "Back to IsoCity", título thumbnail.
+- [x] Renomear todas as chaves localStorage para `oprefeito-*` (GameContext, hooks, coop page).
+- [x] Nome padrão de nova cidade: "Minha Cidade" (era "IsoCity").
+- [x] Tagline brasileira na tela inicial desktop.
+- [x] Build confirmado pós-Milestone 2.
+
 ---
 
 ## Próximos milestones
 
-### Milestone 2 — Tradução e UI PT-BR
-- [ ] Traduzir textos principais da UI restantes.
-- [ ] Definir locale padrão como `pt-BR` no `gt.config.json`.
-- [ ] Criar tela inicial com identidade visual brasileira.
+### Milestone 3 — Sistema de orçamento municipal
+- [ ] Identificar onde o dinheiro/economia é controlado.
+- [ ] Criar tipos para orçamento municipal.
+- [ ] Adicionar receita mensal: IPTU, ISS, repasses federais.
+- [ ] Adicionar despesas: saúde, educação, saneamento, segurança, obras.
+- [ ] Adicionar popularidade do prefeito.
+- [ ] Adicionar painel mensal simplificado.
 
 ### Milestone 3 — Sistema de orçamento municipal
 - [ ] Identificar onde o dinheiro/economia é controlado.

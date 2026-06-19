@@ -425,7 +425,7 @@ function CoasterPageContent() {
                   href="/"
                   className="w-full text-center py-2 text-sm font-light tracking-wide text-white/40 hover:text-white/70 transition-colors duration-200"
                 >
-                  Back to IsoCity
+                  Voltar para O Prefeito
                 </a>
                 <a
                   href="https://github.com/amilich/isometric-city"

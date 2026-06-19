@@ -605,6 +605,9 @@ export default function HomePage() {
               <p className="text-base text-white/40 tracking-widest uppercase mt-2">
                 Simulador de Cidade Brasileira
               </p>
+              <p className="text-sm text-white/25 mt-3 max-w-xs">
+                Construa, governe e sobreviva à política municipal brasileira.
+              </p>
             </div>
             <div className="flex flex-col gap-3">
               <Button 

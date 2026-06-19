@@ -11,7 +11,7 @@ const BATCH_FLUSH_INTERVAL = 100; // ms - flush every 100ms during drag
 const BATCH_MAX_SIZE = 100; // Max placements before force flush
 
 // Storage key for saved cities index (matches page.tsx)
-const SAVED_CITIES_INDEX_KEY = 'isocity-saved-cities-index';
+const SAVED_CITIES_INDEX_KEY = 'oprefeito-saved-cities-index';
 
 // Update the saved cities index with the current multiplayer city state
 function updateSavedCitiesIndex(state: GameState, roomCode: string): void {

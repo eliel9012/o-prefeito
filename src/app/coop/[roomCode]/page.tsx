@@ -9,8 +9,8 @@ import { GameState } from '@/types/game';
 import { compressToUTF16 } from 'lz-string';
 import { useParams, useRouter } from 'next/navigation';
 
-const STORAGE_KEY = 'isocity-game-state';
-const SAVED_CITIES_INDEX_KEY = 'isocity-saved-cities-index';
+const STORAGE_KEY = 'oprefeito-game-state';
+const SAVED_CITIES_INDEX_KEY = 'oprefeito-saved-cities-index';
 
 // Save a city to the saved cities index (for multiplayer cities)
 function saveCityToIndex(state: GameState, roomCode?: string): void {

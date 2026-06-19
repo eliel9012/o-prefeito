@@ -37,12 +37,12 @@ import {
   SpritePack,
 } from '@/lib/renderConfig';
 
-const STORAGE_KEY = 'isocity-game-state';
-const SAVED_CITY_STORAGE_KEY = 'isocity-saved-city'; // For restoring after viewing shared city
-const SAVED_CITIES_INDEX_KEY = 'isocity-saved-cities-index'; // Index of all saved cities
-const SAVED_CITY_PREFIX = 'isocity-city-'; // Prefix for individual saved city states
-const SPRITE_PACK_STORAGE_KEY = 'isocity-sprite-pack';
-const DAY_NIGHT_MODE_STORAGE_KEY = 'isocity-day-night-mode';
+const STORAGE_KEY = 'oprefeito-game-state';
+const SAVED_CITY_STORAGE_KEY = 'oprefeito-saved-city';
+const SAVED_CITIES_INDEX_KEY = 'oprefeito-saved-cities-index';
+const SAVED_CITY_PREFIX = 'oprefeito-city-';
+const SPRITE_PACK_STORAGE_KEY = 'oprefeito-sprite-pack';
+const DAY_NIGHT_MODE_STORAGE_KEY = 'oprefeito-day-night-mode';
 
 export type DayNightMode = 'auto' | 'day' | 'night';
 
@@ -329,13 +329,13 @@ function tryFreeLocalStorageSpace(): void {
     localStorage.removeItem(SAVED_CITY_STORAGE_KEY);
     
     // Clear sprite test data if any
-    localStorage.removeItem('isocity_sprite_test');
-    
+    localStorage.removeItem('oprefeito_sprite_test');
+
     // Clear any other temporary keys
     const keysToRemove: string[] = [];
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
-      if (key && key.startsWith('isocity_temp_')) {
+      if (key && key.startsWith('oprefeito_temp_')) {
         keysToRemove.push(key);
       }
     }
@@ -647,7 +647,7 @@ function deleteCityState(cityId: string): void {
 
 export function GameProvider({ children, startFresh = false }: { children: React.ReactNode; startFresh?: boolean }) {
   // Start with a default state, we'll load from localStorage after mount (unless startFresh is true)
-  const [state, setState] = useState<GameState>(() => createInitialGameState(DEFAULT_GRID_SIZE, 'IsoCity'));
+  const [state, setState] = useState<GameState>(() => createInitialGameState(DEFAULT_GRID_SIZE, 'Minha Cidade'));
   
   const [hasExistingGame, setHasExistingGame] = useState(false);
   const [isStateReady, setIsStateReady] = useState(false);
@@ -1127,7 +1127,7 @@ export function GameProvider({ children, startFresh = false }: { children: React
 
   const newGame = useCallback((name?: string, size?: number) => {
     clearGameState(); // Clear saved state when starting fresh
-    const fresh = createInitialGameState(size ?? DEFAULT_GRID_SIZE, name || 'IsoCity');
+    const fresh = createInitialGameState(size ?? DEFAULT_GRID_SIZE, name || 'Minha Cidade');
     // Increment gameVersion from current state to ensure vehicles/entities are cleared
     setState((prev) => ({
       ...fresh,
