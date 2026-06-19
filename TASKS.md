@@ -26,17 +26,18 @@
 - [x] Tagline brasileira na tela inicial desktop.
 - [x] Build confirmado pós-Milestone 2.
 
+### Milestone 3 — Sistema de orçamento municipal (2026-06-19)
+- [x] Identificar onde o dinheiro/economia é controlado (`src/lib/simulation.ts`).
+- [x] Criar tipos para orçamento municipal (`src/games/isocity/types/municipal.ts`).
+- [x] Adicionar receita mensal: IPTU, ISS, taxas diversas, repasse FPM.
+- [x] Adicionar despesas: saúde, educação, saneamento, segurança, obras, administração.
+- [x] Adicionar popularidade do prefeito (derivada de happiness + penalidades).
+- [x] Painel "Orçamento Municipal" acessível via botão "Prefeitura" na TopBar.
+- [x] Build confirmado pós-Milestone 3.
+
 ---
 
 ## Próximos milestones
-
-### Milestone 3 — Sistema de orçamento municipal
-- [ ] Identificar onde o dinheiro/economia é controlado.
-- [ ] Criar tipos para orçamento municipal.
-- [ ] Adicionar receita mensal: IPTU, ISS, repasses federais.
-- [ ] Adicionar despesas: saúde, educação, saneamento, segurança, obras.
-- [ ] Adicionar popularidade do prefeito.
-- [ ] Adicionar painel mensal simplificado.
 
 ### Milestone 3 — Sistema de orçamento municipal
 - [ ] Identificar onde o dinheiro/economia é controlado.

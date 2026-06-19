@@ -31,6 +31,7 @@ import {
   StatisticsPanel,
   SettingsPanel,
   AdvisorsPanel,
+  MunicipalPanel,
 } from '@/components/game/panels';
 import { MiniMap } from '@/components/game/MiniMap';
 import { TopBar, StatsPanel } from '@/components/game/TopBar';
@@ -318,6 +319,7 @@ export default function Game({ onExit }: { onExit?: () => void }) {
           {state.activePanel === 'statistics' && <StatisticsPanel />}
           {state.activePanel === 'advisors' && <AdvisorsPanel />}
           {state.activePanel === 'settings' && <SettingsPanel />}
+          {state.activePanel === 'municipal' && <MunicipalPanel />}
           
           <VinnieDialog open={showVinnieDialog} onOpenChange={setShowVinnieDialog} />
           
@@ -397,7 +399,8 @@ export default function Game({ onExit }: { onExit?: () => void }) {
         {state.activePanel === 'statistics' && <StatisticsPanel />}
         {state.activePanel === 'advisors' && <AdvisorsPanel />}
         {state.activePanel === 'settings' && <SettingsPanel />}
-        
+        {state.activePanel === 'municipal' && <MunicipalPanel />}
+
         <VinnieDialog open={showVinnieDialog} onOpenChange={setShowVinnieDialog} />
         <CommandMenu />
         

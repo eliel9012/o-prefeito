@@ -4,6 +4,40 @@ Registre aqui todas as alterações feitas por agentes.
 
 ---
 
+## 2026-06-19 — Milestone 3: Sistema de orçamento municipal brasileiro
+
+Modelo/agente usado: claude-sonnet-4-6 (Claude Code)
+
+Arquivos criados:
+- `src/games/isocity/types/municipal.ts` — tipos `ReceitaMunicipal`, `DespesaMunicipal`, `OrcamentoMunicipal`
+- `src/lib/municipalBudget.ts` — `calcularOrcamento()` deriva IPTU/ISS/FPM/despesas dos Stats existentes
+- `src/components/game/panels/MunicipalPanel.tsx` — painel dialog com receita, despesa, saldo e barra de popularidade
+
+Arquivos alterados:
+- `src/games/isocity/types/game.ts` — `activePanel` union + `'municipal'`
+- `src/components/game/panels/index.ts` — exporta `MunicipalPanel`
+- `src/components/Game.tsx` — renderiza `<MunicipalPanel />` nos dois blocos de painéis
+- `src/components/game/TopBar.tsx` — botão "Prefeitura" abre o painel municipal
+
+Resumo:
+Painel de orçamento municipal brasileiro adicionado sem tocar na simulação. O calculador `calcularOrcamento` mapeia os Stats/Budget existentes para categorias brasileiras: IPTU (38% da receita), ISS (28%), taxas diversas (10%), repasse FPM (R$30/hab). Despesas mapeadas para saúde, educação, saneamento, segurança, obras, administração. Popularidade derivada do happiness com penalidades por déficit e impostos altos.
+
+Como testar:
+```bash
+npm run dev
+# http://localhost:3000 → iniciar jogo → clicar "Prefeitura" na barra superior
+```
+
+Build/lint:
+- `npm run build` — PASSOU (68s, sem erros TypeScript)
+
+Limitações:
+- Orçamento é read-only (somente visualização) — não afeta a simulação
+- FPM é simplificado (R$30/hab fixo, sem considerar faixas populacionais reais)
+- Valores em R$ mas jogo ainda usa $ internamente — divergência cosmética
+
+---
+
 ## 2026-06-17 — Milestone 2: Locale PT-BR e limpeza de strings
 
 Modelo/agente usado: claude-sonnet-4-6 (Claude Code)

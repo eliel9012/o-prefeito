@@ -172,7 +172,7 @@ export const StatsPanel = React.memo(function StatsPanel() {
 // ============================================================================
 
 export const TopBar = React.memo(function TopBar() {
-  const { state, setSpeed, setTaxRate, visualHour } = useGame();
+  const { state, setSpeed, setTaxRate, setActivePanel, visualHour } = useGame();
   const { stats, year, month, day, speed, taxRate, cityName } = state;
   const m = useMessages();
   
@@ -268,7 +268,19 @@ export const TopBar = React.memo(function TopBar() {
         </div>
         
         <Separator orientation="vertical" className="h-8" />
-        
+
+        <Button
+          variant="ghost"
+          size="sm"
+          className="text-xs text-muted-foreground hover:text-foreground px-2 h-7"
+          onClick={() => setActivePanel('municipal')}
+          title="Orçamento Municipal"
+        >
+          Prefeitura
+        </Button>
+
+        <Separator orientation="vertical" className="h-8" />
+
         <LanguageSelector iconOnly={false} variant="ghost" iconSize={14} />
       </div>
     </div>
