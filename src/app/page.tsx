@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { GameProvider } from '@/context/GameContext';
 import { MultiplayerContextProvider } from '@/context/MultiplayerContext';
@@ -173,7 +174,7 @@ function SpriteGallery({ count = 16, cols = 4, cellSize = 120 }: { count?: numbe
   
   // Load and filter sprite sheet
   useEffect(() => {
-    const img = new Image();
+    const img = new window.Image();
     img.onload = () => {
       const filtered = filterBackgroundColor(img);
       setFilteredSheet(filtered);
@@ -691,9 +692,57 @@ export default function HomePage() {
             )}
           </div>
 
-          {/* Right - Sprite Gallery */}
+          {/* Right - Hero art brasileira */}
           <div className="flex justify-center lg:justify-end">
-            <SpriteGallery count={16} />
+            <div className="relative w-full max-w-lg">
+              <div className="grid grid-cols-2 gap-3">
+                <div className="relative aspect-square rounded overflow-hidden border border-white/10 shadow-2xl">
+                  <Image
+                    src="/assets/br/prefeitura_municipal_512.webp"
+                    alt="Prefeitura Municipal"
+                    fill
+                    className="object-cover opacity-80 hover:opacity-100 transition-opacity duration-500"
+                    priority
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-2 py-1.5">
+                    <span className="text-white/80 text-[10px] uppercase tracking-widest">Prefeitura</span>
+                  </div>
+                </div>
+                <div className="relative aspect-square rounded overflow-hidden border border-white/10 shadow-2xl">
+                  <Image
+                    src="/assets/br/camara_municipal_512.webp"
+                    alt="Câmara Municipal"
+                    fill
+                    className="object-cover opacity-80 hover:opacity-100 transition-opacity duration-500"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-2 py-1.5">
+                    <span className="text-white/80 text-[10px] uppercase tracking-widest">Câmara</span>
+                  </div>
+                </div>
+                <div className="relative aspect-square rounded overflow-hidden border border-white/10 shadow-2xl">
+                  <Image
+                    src="/assets/br/escola_municipal_512.webp"
+                    alt="Escola Municipal"
+                    fill
+                    className="object-cover opacity-80 hover:opacity-100 transition-opacity duration-500"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-2 py-1.5">
+                    <span className="text-white/80 text-[10px] uppercase tracking-widest">Escola</span>
+                  </div>
+                </div>
+                <div className="relative aspect-square rounded overflow-hidden border border-white/10 shadow-2xl">
+                  <Image
+                    src="/assets/br/ubs_posto_saude_512.webp"
+                    alt="UBS / Posto de Saúde"
+                    fill
+                    className="object-cover opacity-80 hover:opacity-100 transition-opacity duration-500"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-2 py-1.5">
+                    <span className="text-white/80 text-[10px] uppercase tracking-widest">Posto de Saúde</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         

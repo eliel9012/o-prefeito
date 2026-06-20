@@ -19,6 +19,8 @@ import { useMultiplayerSync } from '@/hooks/useMultiplayerSync';
 import { useCopyRoomLink } from '@/hooks/useCopyRoomLink';
 import { useEventosBrasileiros } from '@/hooks/useEventosBrasileiros';
 import { EventoToast } from '@/components/game/EventoToast';
+import { ElectionLostDialog } from '@/components/game/ElectionLostDialog';
+import { useElectionLost } from '@/hooks/useElectionLost';
 import { useMultiplayerOptional } from '@/context/MultiplayerContext';
 import { ShareModal } from '@/components/multiplayer/ShareModal';
 import { Copy, Check } from 'lucide-react';
@@ -85,6 +87,7 @@ export default function Game({ onExit }: { onExit?: () => void }) {
   
   const { copied: copiedRoomLink, handleCopyRoomLink } = useCopyRoomLink(roomCode, 'coop');
   useEventosBrasileiros();
+  const { electionLost, resetElection } = useElectionLost();
   const initialSelectedToolRef = useRef<Tool | null>(null);
   const previousSelectedToolRef = useRef<Tool | null>(null);
   const hasCapturedInitialTool = useRef(false);
@@ -334,6 +337,7 @@ export default function Game({ onExit }: { onExit?: () => void }) {
             onSkipAll={onTipSkipAll}
           />
           <EventoToast />
+          <ElectionLostDialog open={electionLost} onRestart={() => { resetElection(); onExit?.(); }} />
         </div>
       </TooltipProvider>
     );
@@ -416,6 +420,7 @@ export default function Game({ onExit }: { onExit?: () => void }) {
           onSkipAll={onTipSkipAll}
         />
         <EventoToast />
+        <ElectionLostDialog open={electionLost} onRestart={() => { resetElection(); onExit?.(); }} />
       </div>
     </TooltipProvider>
   );

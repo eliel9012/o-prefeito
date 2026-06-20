@@ -4,6 +4,35 @@ Registre aqui todas as alterações feitas por agentes.
 
 ---
 
+## 2026-06-20 — Milestone 9: Tela inicial brasileira + polish MVP
+
+Modelo/agente usado: claude-sonnet-4-6 (Claude Code)
+
+Arquivos criados:
+- `src/hooks/useElectionLost.ts` — detecta popularidade < 20 por 3 meses; retorna `electionLost` + `resetElection`
+- `src/components/game/ElectionLostDialog.tsx` — dialog "Você perdeu a eleição" com imagem em grayscale e botão restart
+
+Arquivos alterados:
+- `src/app/page.tsx` — hero art 2×2 (Prefeitura/Câmara/Escola/UBS) substitui SpriteGallery no desktop; `new window.Image()` para evitar conflito com `next/image`
+- `src/lib/eventosBrasileiros.ts` — evento `lgpd_municipal` adicionado (cookies da prefeitura, humor, dispara mês 1/ano 1)
+- `src/components/Game.tsx` — `useElectionLost` + `<ElectionLostDialog />` integrado nos dois layouts
+
+Resumo:
+Tela inicial desktop agora exibe grid 2×2 de concept arts brasileiros (Prefeitura, Câmara, Escola, UBS) no lugar do sprite gallery. Evento LGPD municipal adicionado como easter egg no primeiro mês. Dialog de derrota eleitoral implementado: popularidade < 20% por 3 meses consecutivos exibe "Você perdeu a eleição" com opção de reiniciar. Build passou sem erros.
+
+Como testar:
+```bash
+npm run dev
+# Tela inicial → direita: 4 imagens isométricas brasileiras
+# Iniciar jogo → mês 1/ano 1 → notificação de lgpd_municipal
+# Popularidade < 20 por 3 meses → dialog de derrota
+```
+
+Build/lint:
+- `npm run build` — PASSOU
+
+---
+
 ## 2026-06-20 — Milestone 8: Integração de assets brasileiros
 
 Modelo/agente usado: claude-sonnet-4-6 (Claude Code)

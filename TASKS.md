@@ -82,6 +82,15 @@
 - [x] Todos os 8 concepts aprovados pelo usuário.
 - [ ] Processar e integrar assets aprovados no jogo.
 
+### Milestone 9 — Tela inicial brasileira + polish MVP (2026-06-20)
+- [x] Hero art na tela inicial desktop: grid 2×2 (Prefeitura, Câmara, Escola, UBS) substituindo SpriteGallery.
+- [x] Evento `lgpd_municipal` — dispara no primeiro mês (ano=1, mês=1), humor sobre cookies da prefeitura.
+- [x] Hook `useElectionLost` — detecta popularidade < 20 por 3 meses consecutivos.
+- [x] Componente `ElectionLostDialog` — dialog "Você perdeu a eleição" com imagem em escala de cinza.
+- [x] Integrado nos dois layouts (desktop + mobile) do `Game.tsx`.
+- [x] Build confirmado pós-Milestone 9.
+- [x] PR aberto para `main`.
+
 ### Milestone 8 — Integração de assets brasileiros (2026-06-20)
 - [x] Processar 8 assets (2048px → 256px e 512px WebP via ImageMagick).
 - [x] Mover para `public/assets/br/` (16 arquivos, 15-67KB cada).

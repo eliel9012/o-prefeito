@@ -84,6 +84,15 @@ export class EventoService {
       impacto: { popularidade: -4, financas: -20000 },
       urgencia: 'baixa'
     },
+    {
+      id: 'lgpd_municipal',
+      categoria: 'administrativo',
+      titulo: 'LGPD Municipal',
+      descricao: 'Câmara aprova "Política de Privacidade Municipal". Moradores devem aceitar cookies da prefeitura para acessar serviços online. Consulta pública em 30 dias.',
+      icone: '🍪',
+      impacto: { popularidade: -2 },
+      urgencia: 'baixa'
+    },
   ];
 
   /**
@@ -106,6 +115,8 @@ export class EventoService {
           return state.budget.water.funding < 50;
         case 'fiscalizacao_ambiental':
           return state.stats.environment < 35;
+        case 'lgpd_municipal':
+          return state.year === 1 && state.month === 1;
         default:
           return true;
       }
