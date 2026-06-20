@@ -17,6 +17,10 @@ import { TipToast } from '@/components/ui/TipToast';
 import { useTipSystem } from '@/hooks/useTipSystem';
 import { useMultiplayerSync } from '@/hooks/useMultiplayerSync';
 import { useCopyRoomLink } from '@/hooks/useCopyRoomLink';
+import { useEventosBrasileiros } from '@/hooks/useEventosBrasileiros';
+import { EventoToast } from '@/components/game/EventoToast';
+import { ElectionLostDialog } from '@/components/game/ElectionLostDialog';
+import { useElectionLost } from '@/hooks/useElectionLost';
 import { useMultiplayerOptional } from '@/context/MultiplayerContext';
 import { ShareModal } from '@/components/multiplayer/ShareModal';
 import { Copy, Check } from 'lucide-react';
@@ -31,6 +35,7 @@ import {
   StatisticsPanel,
   SettingsPanel,
   AdvisorsPanel,
+  MunicipalPanel,
 } from '@/components/game/panels';
 import { MiniMap } from '@/components/game/MiniMap';
 import { TopBar, StatsPanel } from '@/components/game/TopBar';
@@ -81,6 +86,8 @@ export default function Game({ onExit }: { onExit?: () => void }) {
   } = useMultiplayerSync();
   
   const { copied: copiedRoomLink, handleCopyRoomLink } = useCopyRoomLink(roomCode, 'coop');
+  useEventosBrasileiros();
+  const { electionLost, resetElection } = useElectionLost();
   const initialSelectedToolRef = useRef<Tool | null>(null);
   const previousSelectedToolRef = useRef<Tool | null>(null);
   const hasCapturedInitialTool = useRef(false);
@@ -318,9 +325,10 @@ export default function Game({ onExit }: { onExit?: () => void }) {
           {state.activePanel === 'statistics' && <StatisticsPanel />}
           {state.activePanel === 'advisors' && <AdvisorsPanel />}
           {state.activePanel === 'settings' && <SettingsPanel />}
+          {state.activePanel === 'municipal' && <MunicipalPanel />}
           
           <VinnieDialog open={showVinnieDialog} onOpenChange={setShowVinnieDialog} />
-          
+
           {/* Tip Toast for helping new players */}
           <TipToast
             message={currentTip || ''}
@@ -328,6 +336,8 @@ export default function Game({ onExit }: { onExit?: () => void }) {
             onContinue={onTipContinue}
             onSkipAll={onTipSkipAll}
           />
+          <EventoToast />
+          <ElectionLostDialog open={electionLost} onRestart={() => { resetElection(); onExit?.(); }} />
         </div>
       </TooltipProvider>
     );
@@ -397,10 +407,11 @@ export default function Game({ onExit }: { onExit?: () => void }) {
         {state.activePanel === 'statistics' && <StatisticsPanel />}
         {state.activePanel === 'advisors' && <AdvisorsPanel />}
         {state.activePanel === 'settings' && <SettingsPanel />}
-        
+        {state.activePanel === 'municipal' && <MunicipalPanel />}
+
         <VinnieDialog open={showVinnieDialog} onOpenChange={setShowVinnieDialog} />
         <CommandMenu />
-        
+
         {/* Tip Toast for helping new players */}
         <TipToast
           message={currentTip || ''}
@@ -408,6 +419,8 @@ export default function Game({ onExit }: { onExit?: () => void }) {
           onContinue={onTipContinue}
           onSkipAll={onTipSkipAll}
         />
+        <EventoToast />
+        <ElectionLostDialog open={electionLost} onRestart={() => { resetElection(); onExit?.(); }} />
       </div>
     </TooltipProvider>
   );

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { GameProvider } from '@/context/GameContext';
 import { MultiplayerContextProvider } from '@/context/MultiplayerContext';
@@ -14,8 +15,8 @@ import { LanguageSelector } from '@/components/ui/LanguageSelector';
 import { T } from 'gt-next';
 import { Users, X } from 'lucide-react';
 
-const STORAGE_KEY = 'isocity-game-state';
-const SAVED_CITIES_INDEX_KEY = 'isocity-saved-cities-index';
+const STORAGE_KEY = 'oprefeito-game-state';
+const SAVED_CITIES_INDEX_KEY = 'oprefeito-saved-cities-index';
 
 // Background color to filter from sprite sheets (red)
 const BACKGROUND_COLOR = { r: 255, g: 0, b: 0 };
@@ -173,7 +174,7 @@ function SpriteGallery({ count = 16, cols = 4, cellSize = 120 }: { count?: numbe
   
   // Load and filter sprite sheet
   useEffect(() => {
-    const img = new Image();
+    const img = new window.Image();
     img.onload = () => {
       const filtered = filterBackgroundColor(img);
       setFilteredSheet(filtered);
@@ -314,7 +315,7 @@ function SavedCityCard({ city, onLoad, onDelete }: { city: SavedCityMeta; onLoad
   );
 }
 
-const SAVED_CITY_PREFIX = 'isocity-city-';
+const SAVED_CITY_PREFIX = 'oprefeito-city-';
 
 export default function HomePage() {
   const [showGame, setShowGame] = useState(false);
@@ -477,9 +478,14 @@ export default function HomePage() {
           <div className="flex-shrink-0 h-4 sm:h-8" />
           
           {/* Title - smaller on very small screens */}
-          <h1 className="text-4xl sm:text-5xl font-light tracking-wider text-white/90 mb-4 sm:mb-6 flex-shrink-0">
-            IsoCity
-          </h1>
+          <div className="flex flex-col items-center flex-shrink-0 mb-4 sm:mb-6">
+            <h1 className="text-4xl sm:text-5xl font-light tracking-wider text-white/90">
+              O Prefeito
+            </h1>
+            <p className="text-xs sm:text-sm text-white/40 tracking-widest uppercase mt-1">
+              Simulador de Cidade Brasileira
+            </p>
+          </div>
           
           {/* Sprite Gallery - smaller on mobile, contained */}
           <div className="mb-4 sm:mb-6 flex-shrink-0">
@@ -593,9 +599,17 @@ export default function HomePage() {
           
           {/* Left - Title and Start Button */}
           <div className="flex flex-col items-center lg:items-start justify-center space-y-12">
-            <h1 className="text-8xl font-light tracking-wider text-white/90">
-              IsoCity
-            </h1>
+            <div className="flex flex-col">
+              <h1 className="text-8xl font-light tracking-wider text-white/90">
+                O Prefeito
+              </h1>
+              <p className="text-base text-white/40 tracking-widest uppercase mt-2">
+                Simulador de Cidade Brasileira
+              </p>
+              <p className="text-sm text-white/25 mt-3 max-w-xs">
+                Construa, governe e sobreviva à política municipal brasileira.
+              </p>
+            </div>
             <div className="flex flex-col gap-3">
               <Button 
                 onClick={() => setShowGame(true)}
@@ -678,9 +692,57 @@ export default function HomePage() {
             )}
           </div>
 
-          {/* Right - Sprite Gallery */}
+          {/* Right - Hero art brasileira */}
           <div className="flex justify-center lg:justify-end">
-            <SpriteGallery count={16} />
+            <div className="relative w-full max-w-lg">
+              <div className="grid grid-cols-2 gap-3">
+                <div className="relative aspect-square rounded overflow-hidden border border-white/10 shadow-2xl">
+                  <Image
+                    src="/assets/br/prefeitura_municipal_512.webp"
+                    alt="Prefeitura Municipal"
+                    fill
+                    className="object-cover opacity-80 hover:opacity-100 transition-opacity duration-500"
+                    priority
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-2 py-1.5">
+                    <span className="text-white/80 text-[10px] uppercase tracking-widest">Prefeitura</span>
+                  </div>
+                </div>
+                <div className="relative aspect-square rounded overflow-hidden border border-white/10 shadow-2xl">
+                  <Image
+                    src="/assets/br/camara_municipal_512.webp"
+                    alt="Câmara Municipal"
+                    fill
+                    className="object-cover opacity-80 hover:opacity-100 transition-opacity duration-500"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-2 py-1.5">
+                    <span className="text-white/80 text-[10px] uppercase tracking-widest">Câmara</span>
+                  </div>
+                </div>
+                <div className="relative aspect-square rounded overflow-hidden border border-white/10 shadow-2xl">
+                  <Image
+                    src="/assets/br/escola_municipal_512.webp"
+                    alt="Escola Municipal"
+                    fill
+                    className="object-cover opacity-80 hover:opacity-100 transition-opacity duration-500"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-2 py-1.5">
+                    <span className="text-white/80 text-[10px] uppercase tracking-widest">Escola</span>
+                  </div>
+                </div>
+                <div className="relative aspect-square rounded overflow-hidden border border-white/10 shadow-2xl">
+                  <Image
+                    src="/assets/br/ubs_posto_saude_512.webp"
+                    alt="UBS / Posto de Saúde"
+                    fill
+                    className="object-cover opacity-80 hover:opacity-100 transition-opacity duration-500"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-2 py-1.5">
+                    <span className="text-white/80 text-[10px] uppercase tracking-widest">Posto de Saúde</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         

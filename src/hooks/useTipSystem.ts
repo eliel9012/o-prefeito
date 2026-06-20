@@ -147,8 +147,8 @@ const TIP_DEFINITIONS: TipDefinition[] = [
   },
 ];
 
-const STORAGE_KEY = 'isocity-tips-disabled';
-const SHOWN_TIPS_KEY = 'isocity-tips-shown';
+const STORAGE_KEY = 'oprefeito-tips-disabled';
+const SHOWN_TIPS_KEY = 'oprefeito-tips-shown';
 const MIN_TIP_INTERVAL_MS = 15000; // Minimum 15 seconds between tips
 const TIP_CHECK_INTERVAL_MS = 5000; // Check for tip conditions every 5 seconds
 const INITIAL_TIP_DELAY_MS = 3000; // Wait 3 seconds before first tip
