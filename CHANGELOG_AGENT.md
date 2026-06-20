@@ -4,6 +4,28 @@ Registre aqui todas as alterações feitas por agentes.
 
 ---
 
+## 2026-06-20 — Milestone 6: Pipeline Higgsfield — concepts brasileiros
+
+Modelo/agente usado: GPT Image 2 via Higgsfield CLI
+
+Arquivos criados:
+- `assets/concepts/higgsfield/prefeitura_municipal.png`
+- `assets/concepts/higgsfield/camara_municipal.png`
+- `assets/concepts/higgsfield/ubs_posto_saude.png`
+- `assets/concepts/higgsfield/escola_municipal.png`
+- `assets/concepts/higgsfield/buraco_na_rua.png`
+- `generated_assets_log.md` — log de assets com URLs, status, modelo
+
+Resumo:
+5 concept arts isométricos com identidade visual brasileira gerados via Higgsfield (GPT Image 2). Prompt base: isométrico 3/4, luz brasileira diurna, sinalização em português, sem marcas reais, sem políticos. Status: concept — aguardando aprovação visual antes de integração.
+
+Status dos assets:
+- Todos ~6-7MB PNG, proporção 1:1
+- Não integrados ao jogo ainda (apenas reference/concept)
+- Próximo: aprovar visualmente, gerar enchente/obra parada, processar para sprites
+
+---
+
 ## 2026-06-19 — Milestone 5: Setup Tauri para macOS
 
 Modelo/agente usado: claude-sonnet-4-6 (Claude Code)

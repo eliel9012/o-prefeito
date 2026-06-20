@@ -68,13 +68,17 @@
 - [ ] Testar `tauri dev` no Mac (requer Rust + macOS).
 - [ ] Implementar Next.js standalone sidecar para distribuição real.
 
-### Milestone 6 — Pipeline Higgsfield (assets brasileiros)
-- [ ] Criar log de assets gerados.
-- [ ] Gerar concept da Prefeitura.
-- [ ] Gerar concept da Câmara Municipal.
-- [ ] Gerar concept da UBS.
-- [ ] Gerar concept da Escola Municipal.
-- [ ] Gerar concept de buraco/enchente/obra parada.
+### Milestone 6 — Pipeline Higgsfield (assets brasileiros) (2026-06-20)
+- [x] Criar log de assets gerados (`generated_assets_log.md`).
+- [x] Criar estrutura de pastas (`assets/concepts/higgsfield/`, `assets/processed/`, `public/assets/br/`).
+- [x] Gerar concept da Prefeitura Municipal.
+- [x] Gerar concept da Câmara Municipal.
+- [x] Gerar concept da UBS / Posto de Saúde.
+- [x] Gerar concept da Escola Municipal.
+- [x] Gerar concept de Buraco na rua (evento).
+- [ ] Aprovar/rejeitar concepts visualmente.
+- [ ] Gerar concept de enchente e obra parada.
+- [ ] Processar e integrar assets aprovados no jogo.
 
 ### Milestone 7 — Revisão de arquitetura
 - [ ] Revisão de arquitetura pelo Mistral Medium 3.5 via Aider.
