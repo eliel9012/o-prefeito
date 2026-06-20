@@ -82,6 +82,15 @@
 - [x] Todos os 8 concepts aprovados pelo usuário.
 - [ ] Processar e integrar assets aprovados no jogo.
 
+### Milestone 8 — Integração de assets brasileiros (2026-06-20)
+- [x] Processar 8 assets (2048px → 256px e 512px WebP via ImageMagick).
+- [x] Mover para `public/assets/br/` (16 arquivos, 15-67KB cada).
+- [x] Criar `EventoToast` — toast com thumbnail do evento + emoji + título + descrição (6s, auto-dismiss).
+- [x] Integrar `EventoToast` no layout desktop e mobile do `Game.tsx`.
+- [x] Adicionar thumbnail da Prefeitura no cabeçalho do `MunicipalPanel`.
+- [x] Mapear evento → imagem (buraco, enchente, obra, câmara, saúde, casa).
+- [x] Build confirmado pós-Milestone 8.
+
 ### Milestone 7 — Revisão de arquitetura (2026-06-20)
 - [x] Revisão de arquitetura pelo Mistral Medium 3.5 via Aider.
 - [x] Fix: `useEventosBrasileiros` — remover `state` inteiro do deps (usar só `state.month`/`state.year`); pattern com useRef.

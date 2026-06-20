@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useMemo } from 'react';
+import Image from 'next/image';
 import { useGame } from '@/context/GameContext';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { OrcamentoService } from '@/lib/municipalBudget';
@@ -108,7 +109,18 @@ export function MunicipalPanel() {
     <Dialog open={true} onOpenChange={() => setActivePanel('none')}>
       <DialogContent className="max-w-[480px]">
         <DialogHeader>
-          <DialogTitle>Orçamento Municipal - {month}/{year}</DialogTitle>
+          <div className="flex items-center gap-3">
+            <div className="shrink-0 w-12 h-12 rounded overflow-hidden border border-border/60">
+              <Image
+                src="/assets/br/prefeitura_municipal_256.webp"
+                alt="Prefeitura Municipal"
+                width={48}
+                height={48}
+                className="object-cover w-full h-full"
+              />
+            </div>
+            <DialogTitle>Orçamento Municipal — {month}/{year}</DialogTitle>
+          </div>
         </DialogHeader>
 
         <div className="space-y-5">

@@ -4,6 +4,38 @@ Registre aqui todas as alterações feitas por agentes.
 
 ---
 
+## 2026-06-20 — Milestone 8: Integração de assets brasileiros
+
+Modelo/agente usado: claude-sonnet-4-6 (Claude Code)
+
+Arquivos criados:
+- `public/assets/br/` — 16 WebP: 8 assets × 2 tamanhos (256px ~16KB, 512px ~60KB)
+- `src/components/game/EventoToast.tsx` — toast de eventos com thumbnail, emoji, título, descrição (6s auto-dismiss)
+
+Arquivos alterados:
+- `src/components/Game.tsx` — import + `<EventoToast />` nos dois layouts (desktop + mobile)
+- `src/components/game/panels/MunicipalPanel.tsx` — thumbnail 48px da Prefeitura no cabeçalho do dialog
+
+Resumo:
+Assets processados de 6-7MB (2048px PNG) para WebP otimizados: 256px para thumbnails (~16KB) e 512px para modal/detalhe (~60KB). Componente `EventoToast` criado — detecta notificações novas via `state.notifications`, exibe como card com imagem do evento correspondente no canto inferior direito por 6 segundos. Mapeamento evento→imagem cobre todos os 8 eventos. `MunicipalPanel` recebe thumbnail da prefeitura no header.
+
+Como testar:
+```bash
+npm run dev
+# Iniciar jogo → aumentar velocidade → aguardar virada de mês
+# Toast aparece canto inferior direito com imagem + texto do evento
+# Clicar "Prefeitura" → painel com thumbnail da prefeitura no título
+```
+
+Build/lint:
+- `npm run build` — PASSOU
+
+Limitações:
+- Toast sem botão de fechar (fecha sozinho após 6s)
+- Eventos sem imagem específica usam imagem genérica (câmara ou saúde)
+
+---
+
 ## 2026-06-20 — Milestone 7: Revisão de arquitetura + fixes
 
 Modelo/agente usado: Mistral Medium 3.5 via Aider (revisão) + claude-sonnet-4-6 (fixes)

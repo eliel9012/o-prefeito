@@ -18,6 +18,7 @@ import { useTipSystem } from '@/hooks/useTipSystem';
 import { useMultiplayerSync } from '@/hooks/useMultiplayerSync';
 import { useCopyRoomLink } from '@/hooks/useCopyRoomLink';
 import { useEventosBrasileiros } from '@/hooks/useEventosBrasileiros';
+import { EventoToast } from '@/components/game/EventoToast';
 import { useMultiplayerOptional } from '@/context/MultiplayerContext';
 import { ShareModal } from '@/components/multiplayer/ShareModal';
 import { Copy, Check } from 'lucide-react';
@@ -324,7 +325,7 @@ export default function Game({ onExit }: { onExit?: () => void }) {
           {state.activePanel === 'municipal' && <MunicipalPanel />}
           
           <VinnieDialog open={showVinnieDialog} onOpenChange={setShowVinnieDialog} />
-          
+
           {/* Tip Toast for helping new players */}
           <TipToast
             message={currentTip || ''}
@@ -332,6 +333,7 @@ export default function Game({ onExit }: { onExit?: () => void }) {
             onContinue={onTipContinue}
             onSkipAll={onTipSkipAll}
           />
+          <EventoToast />
         </div>
       </TooltipProvider>
     );
@@ -405,7 +407,7 @@ export default function Game({ onExit }: { onExit?: () => void }) {
 
         <VinnieDialog open={showVinnieDialog} onOpenChange={setShowVinnieDialog} />
         <CommandMenu />
-        
+
         {/* Tip Toast for helping new players */}
         <TipToast
           message={currentTip || ''}
@@ -413,6 +415,7 @@ export default function Game({ onExit }: { onExit?: () => void }) {
           onContinue={onTipContinue}
           onSkipAll={onTipSkipAll}
         />
+        <EventoToast />
       </div>
     </TooltipProvider>
   );
