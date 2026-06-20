@@ -4,6 +4,34 @@ Registre aqui todas as alterações feitas por agentes.
 
 ---
 
+## 2026-06-20 — Milestone 7: Revisão de arquitetura + fixes
+
+Modelo/agente usado: Mistral Medium 3.5 via Aider (revisão) + claude-sonnet-4-6 (fixes)
+
+Arquivos alterados:
+- `src/hooks/useEventosBrasileiros.ts` — padrão useRef para detectar virada de mês sem `state` inteiro no deps; try/catch; timeout 800ms
+- `src/lib/municipalBudget.ts` — refatorado para `OrcamentoService`; `IndicadoresMunicipais` (popularidade, satisfaçãoServiços, estabilidadeFiscal); proteção contra negativos
+- `src/lib/eventosBrasileiros.ts` — refatorado para `EventoService` com tipo `EventoMunicipal`; 8 eventos com `categoria`, `impacto`, `urgencia`
+- `src/games/isocity/types/municipal.ts` — adicionado `IndicadoresMunicipais`, `EventoMunicipal`
+- `src/components/game/panels/MunicipalPanel.tsx` — import `IndicadoresMunicipais`; `formatCurrency` local; painel de indicadores
+- `src/components/game/TopBar.tsx` — meses em PT-BR; `formatCurrency` local; removido código morto
+
+Resumo:
+Revisão de arquitetura identificou 3 problemas: (1) `state` inteiro no deps do useEffect causava re-execução excessiva; (2) valores negativos não protegidos no cálculo de orçamento; (3) acoplamento fraco dos tipos. Fixes aplicados. Adicionalmente: refatoração para classes de serviço (`OrcamentoService`, `EventoService`), novos indicadores municipais no painel (aprovação, satisfação serviços, estabilidade fiscal), meses em PT-BR no TopBar.
+
+Como testar:
+```bash
+npm run dev
+# TopBar → meses em português (Jan→Dez)
+# Botão Prefeitura → painel com 3 indicadores + receita/despesa
+# Virada de mês → até 2 notificações de eventos municipais
+```
+
+Build/lint:
+- `npm run build` — PASSOU
+
+---
+
 ## 2026-06-20 — Milestone 6: Pipeline Higgsfield — concepts brasileiros
 
 Modelo/agente usado: GPT Image 2 via Higgsfield CLI

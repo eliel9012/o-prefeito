@@ -2,11 +2,10 @@
 
 import { useEffect, useRef } from 'react';
 import { useGame } from '@/context/GameContext';
-import { sortearEventosMensais } from '@/lib/eventosBrasileiros';
+import { EventoService } from '@/lib/eventosBrasileiros';
 
 /**
- * Dispara eventos municipais brasileiros ao virar o mês.
- * Chame este hook dentro do componente Game.
+ * Hook para gerenciamento de eventos municipais brasileiros
  */
 export function useEventosBrasileiros() {
   const { state, addNotification } = useGame();
@@ -14,22 +13,30 @@ export function useEventosBrasileiros() {
   const prevYearRef = useRef<number>(state.year);
 
   useEffect(() => {
-    const monthChanged =
-      state.month !== prevMonthRef.current || state.year !== prevYearRef.current;
+    const monthChanged = state.month !== prevMonthRef.current || state.year !== prevYearRef.current;
 
     if (monthChanged) {
       prevMonthRef.current = state.month;
       prevYearRef.current = state.year;
 
-      // Small delay so month-turn UI settles first
-      const t = setTimeout(() => {
-        const eventos = sortearEventosMensais(state);
-        eventos.forEach((ev) => {
-          addNotification(ev.titulo, ev.descricao, ev.icone);
-        });
+      // Pequeno atraso para permitir que a UI de mudança de mês se estabeleça primeiro
+      const timer = setTimeout(() => {
+        try {
+          const eventos = EventoService.sortearEventosMensais(state);
+          eventos.forEach((ev) => {
+            addNotification(ev.titulo, ev.descricao, ev.icone);
+          });
+        } catch (error) {
+          console.error('Erro ao processar eventos mensais:', error);
+          addNotification(
+            'Erro',
+            'Ocorreu um erro ao processar eventos mensais',
+            '⚠️'
+          );
+        }
       }, 800);
 
-      return () => clearTimeout(t);
+      return () => clearTimeout(timer);
     }
-  }, [state.month, state.year, state, addNotification]);
+  }, [state.month, state.year, addNotification]);
 }

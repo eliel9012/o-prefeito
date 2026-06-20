@@ -1,100 +1,147 @@
 /**
- * Eventos municipais brasileiros.
- * Disparados mensalmente via hook — sem tocar na simulação.
+ * Serviço de eventos municipais brasileiros
  */
 
 import { GameState } from '@/games/isocity/types';
-
-export interface EventoBrasileiro {
-  id: string;
-  titulo: string;
-  descricao: string;
-  icone: string;
-  /** 0–1 base probability per month */
-  probabilidade: number;
-  /** Return true if event can fire given state */
-  condicao?: (state: GameState) => boolean;
-}
+import { EventoMunicipal } from '@/games/isocity/types/municipal';
 
 const MESES_CHUVA = [1, 2, 11, 12]; // Verão brasileiro
 
-export const EVENTOS_BRASILEIROS: EventoBrasileiro[] = [
-  {
-    id: 'buraco_na_rua',
-    titulo: 'Buraco na via!',
-    descricao: 'Moradores reclamam de buraco na pista. Trânsito lento e reclamações nas redes sociais.',
-    icone: '🕳️',
-    probabilidade: 0.55,
-  },
-  {
-    id: 'enchente',
-    titulo: 'Enchente na cidade',
-    descricao: 'Chuvas fortes causam alagamentos em bairros de baixa altitude. Defesa Civil em alerta.',
-    icone: '🌊',
-    probabilidade: 0.30,
-    condicao: (s) => MESES_CHUVA.includes(s.month),
-  },
-  {
-    id: 'obra_parada',
-    titulo: 'Obra paralisada',
-    descricao: 'Empresa contratada paralisa obra por falta de pagamento. Prazo vencido há 3 meses.',
-    icone: '🏗️',
-    probabilidade: 0.35,
-    condicao: (s) => s.stats.money < 5000,
-  },
-  {
-    id: 'licitacao_emergencial',
-    titulo: 'Licitação emergencial',
-    descricao: 'Vereadores questionam dispensa de licitação. TCM solicita prestação de contas em 15 dias.',
-    icone: '📋',
-    probabilidade: 0.25,
-  },
-  {
-    id: 'camara_pressiona',
-    titulo: 'Câmara convoca prefeito',
-    descricao: 'Vereadores da oposição convocam prefeito para explicar gastos. Sessão extraordinária marcada.',
-    icone: '🏛️',
-    probabilidade: 0.40,
-    condicao: (s) => (s.stats.happiness ?? 50) < 45,
-  },
-  {
-    id: 'ministerio_publico_recomenda',
-    titulo: 'Recomendação do MP',
-    descricao: 'Ministério Público emite recomendação sobre acesso à saúde pública. Prazo de 30 dias para resposta.',
-    icone: '⚖️',
-    probabilidade: 0.18,
-    condicao: (s) => s.budget.health.funding < 60,
-  },
-  {
-    id: 'crise_saneamento',
-    titulo: 'Crise de saneamento',
-    descricao: "Falta d’água em bairros periféricos. SAAE não tem previsão de retorno da pressão normal.",
-    icone: '🚰',
-    probabilidade: 0.28,
-    condicao: (s) => s.budget.water.funding < 50,
-  },
-  {
-    id: 'fiscalizacao_ambiental',
-    titulo: 'Fiscalização ambiental',
-    descricao: 'IBAMA e CETESB notificam prefeitura por desmatamento irregular. Multa pode chegar a R$50 mil.',
-    icone: '🌿',
-    probabilidade: 0.20,
-    condicao: (s) => s.stats.environment < 35,
-  },
-];
+export class EventoService {
+  private static eventos: EventoMunicipal[] = [
+    {
+      id: 'buraco_na_rua',
+      categoria: 'infraestrutura',
+      titulo: 'Buraco na via!',
+      descricao: 'Moradores reclamam de buraco na pista. Trânsito lento e reclamações nas redes sociais.',
+      icone: '🕳️',
+      impacto: {
+        popularidade: -5,
+        servicos: -3
+      },
+      urgencia: 'media'
+    },
+    {
+      id: 'enchente',
+      categoria: 'infraestrutura',
+      titulo: 'Enchente na cidade',
+      descricao: 'Chuvas fortes causam alagamentos em bairros de baixa altitude. Defesa Civil em alerta.',
+      icone: '🌊',
+      impacto: { popularidade: -10, financas: -50000 },
+      urgencia: 'alta'
+    },
+    {
+      id: 'obra_parada',
+      categoria: 'infraestrutura',
+      titulo: 'Obra paralisada',
+      descricao: 'Empresa contratada paralisa obra por falta de pagamento. Prazo vencido há 3 meses.',
+      icone: '🏗️',
+      impacto: { popularidade: -8, servicos: -5 },
+      urgencia: 'media'
+    },
+    {
+      id: 'licitacao_emergencial',
+      categoria: 'administrativo',
+      titulo: 'Licitação emergencial',
+      descricao: 'Vereadores questionam dispensa de licitação. TCM solicita prestação de contas em 15 dias.',
+      icone: '📋',
+      impacto: { popularidade: -5 },
+      urgencia: 'media'
+    },
+    {
+      id: 'camara_pressiona',
+      categoria: 'administrativo',
+      titulo: 'Câmara convoca prefeito',
+      descricao: 'Vereadores da oposição convocam prefeito para explicar gastos. Sessão extraordinária marcada.',
+      icone: '🏛️',
+      impacto: { popularidade: -12 },
+      urgencia: 'alta'
+    },
+    {
+      id: 'ministerio_publico_recomenda',
+      categoria: 'social',
+      titulo: 'Recomendação do MP',
+      descricao: 'Ministério Público emite recomendação sobre acesso à saúde pública. Prazo de 30 dias para resposta.',
+      icone: '⚖️',
+      impacto: { popularidade: -6, servicos: -3 },
+      urgencia: 'media'
+    },
+    {
+      id: 'crise_saneamento',
+      categoria: 'infraestrutura',
+      titulo: 'Crise de saneamento',
+      descricao: "Falta d'água em bairros periféricos. SAAE não tem previsão de retorno da pressão normal.",
+      icone: '🚰',
+      impacto: { popularidade: -10, servicos: -8 },
+      urgencia: 'alta'
+    },
+    {
+      id: 'fiscalizacao_ambiental',
+      categoria: 'ambiental',
+      titulo: 'Fiscalização ambiental',
+      descricao: 'IBAMA autua município por descumprimento de normas ambientais. Multa a ser contestada.',
+      icone: '🌿',
+      impacto: { popularidade: -4, financas: -20000 },
+      urgencia: 'baixa'
+    },
+  ];
 
-/**
- * Sorteia quais eventos disparam neste mês.
- * Máx 2 por mês para não sobrecarregar o jogador.
- */
-export function sortearEventosMensais(state: GameState): EventoBrasileiro[] {
-  const candidatos = EVENTOS_BRASILEIROS.filter(
-    (e) => (!e.condicao || e.condicao(state)) && Math.random() < e.probabilidade
-  );
-  // Shuffle and cap at 2
-  for (let i = candidatos.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [candidatos[i], candidatos[j]] = [candidatos[j], candidatos[i]];
+  /**
+   * Sorteia eventos mensais com base no estado atual
+   */
+  static sortearEventosMensais(state: GameState): EventoMunicipal[] {
+    // Filtra eventos que podem ocorrer no estado atual
+    const eventosCandidatos = this.eventos.filter(evento => {
+      // Adicionar condições específicas para cada evento aqui
+      switch (evento.id) {
+        case 'enchente':
+          return MESES_CHUVA.includes(state.month);
+        case 'obra_parada':
+          return state.stats.money < 5000;
+        case 'camara_pressiona':
+          return (state.stats.happiness ?? 50) < 45;
+        case 'ministerio_publico_recomenda':
+          return state.budget.health.funding < 60;
+        case 'crise_saneamento':
+          return state.budget.water.funding < 50;
+        case 'fiscalizacao_ambiental':
+          return state.stats.environment < 35;
+        default:
+          return true;
+      }
+    });
+
+    // Ordena por urgência (alta probabilidade para eventos urgentes)
+    const eventosOrdenados = [...eventosCandidatos].sort((a, b) => {
+      const prioridadeA = a.urgencia === 'alta' ? 3 : a.urgencia === 'media' ? 2 : 1;
+      const prioridadeB = b.urgencia === 'alta' ? 3 : b.urgencia === 'media' ? 2 : 1;
+      return prioridadeB - prioridadeA;
+    });
+
+    // Seleciona até 2 eventos com base em probabilidade
+    const eventosSelecionados: EventoMunicipal[] = [];
+    const probabilidades = [0.7, 0.3]; // 70% para primeiro evento, 30% para segundo
+
+    for (let i = 0; i < probabilidades.length && i < eventosOrdenados.length; i++) {
+      if (Math.random() < probabilidades[i]) {
+        eventosSelecionados.push(eventosOrdenados[i]);
+      }
+    }
+
+    return eventosSelecionados;
   }
-  return candidatos.slice(0, 2);
+
+  /**
+   * Obtém um evento pelo ID
+   */
+  static getEventoPorId(id: string): EventoMunicipal | undefined {
+    return this.eventos.find(evento => evento.id === id);
+  }
+
+  /**
+   * Obtém todos os eventos de uma categoria
+   */
+  static getEventosPorCategoria(categoria: string): EventoMunicipal[] {
+    return this.eventos.filter(evento => evento.categoria === categoria);
+  }
 }

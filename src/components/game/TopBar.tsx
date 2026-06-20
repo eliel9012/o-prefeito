@@ -20,6 +20,15 @@ import {
 } from '@/components/ui/Icons';
 import { copyShareUrl } from '@/lib/shareState';
 import { LanguageSelector } from '@/components/ui/LanguageSelector';
+// Utilitário para formatação monetária
+const formatCurrency = (value: number): string => {
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  }).format(value);
+};
 
 // Translatable UI labels
 const UI_LABELS = {
@@ -47,23 +56,20 @@ export const TimeOfDayIcon = ({ hour }: TimeOfDayIconProps) => {
   const isNight = hour < 6 || hour >= 20;
   const isDawn = hour >= 6 && hour < 8;
   const isDusk = hour >= 18 && hour < 20;
-  
+
   if (isNight) {
-    // Moon icon
     return (
       <svg className="w-4 h-4 text-blue-300" viewBox="0 0 24 24" fill="currentColor">
         <path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
       </svg>
     );
   } else if (isDawn || isDusk) {
-    // Sunrise/sunset icon
     return (
       <svg className="w-4 h-4 text-orange-400" viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" />
       </svg>
     );
   } else {
-    // Sun icon
     return (
       <svg className="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" />
@@ -83,10 +89,10 @@ interface StatBadgeProps {
 }
 
 export function StatBadge({ value, label, variant = 'default' }: StatBadgeProps) {
-  const colorClass = variant === 'success' ? 'text-green-500' : 
-                     variant === 'warning' ? 'text-amber-500' : 
+  const colorClass = variant === 'success' ? 'text-green-500' :
+                     variant === 'warning' ? 'text-amber-500' :
                      variant === 'destructive' ? 'text-red-500' : 'text-foreground';
-  
+
   return (
     <div className="flex flex-col items-start min-w-[70px]">
       <div className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium mb-0.5">{label}</div>
@@ -108,7 +114,7 @@ interface DemandIndicatorProps {
 export function DemandIndicator({ label, demand, color }: DemandIndicatorProps) {
   const height = Math.abs(demand) / 2;
   const isPositive = demand >= 0;
-  
+
   return (
     <div className="flex flex-col items-center gap-1">
       <span className={`text-[10px] font-bold ${color}`}>{label}</span>
@@ -155,7 +161,7 @@ export const StatsPanel = React.memo(function StatsPanel() {
   const { state } = useGame();
   const { stats } = state;
   const m = useMessages();
-  
+
   return (
     <div className="h-8 bg-secondary/50 border-b border-border flex items-center justify-center gap-8 text-xs">
       <MiniStat icon={<HappyIcon size={12} />} label={String(m(UI_LABELS.happiness))} value={stats.happiness} />
@@ -175,10 +181,10 @@ export const TopBar = React.memo(function TopBar() {
   const { state, setSpeed, setTaxRate, setActivePanel, visualHour } = useGame();
   const { stats, year, month, day, speed, taxRate, cityName } = state;
   const m = useMessages();
-  
-  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  const monthNames = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
   const formattedDate = `${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}-${year}`;
-  
+
   return (
     <div className="h-14 bg-card border-b border-border flex items-center justify-between px-4">
       <div className="flex items-center gap-6">
@@ -198,7 +204,7 @@ export const TopBar = React.memo(function TopBar() {
             <TimeOfDayIcon hour={visualHour} />
           </div>
         </div>
-        
+
         <div className="flex items-center gap-0 bg-secondary rounded-md p-0">
           {[0, 1, 2, 3].map(s => (
             <Button
@@ -207,10 +213,10 @@ export const TopBar = React.memo(function TopBar() {
               variant={speed === s ? 'default' : 'ghost'}
               size="icon-sm"
               className="h-7 w-7 p-0 m-0"
-              title={s === 0 ? 'Pause' : s === 1 ? 'Normal' : s === 2 ? 'Fast' : 'Very Fast'}
+              title={s === 0 ? 'Pause' : s === 1 ? 'Normal' : s === 2 ? 'Rápido' : 'Muito Rápido'}
             >
-              {s === 0 ? <PauseIcon size={12} /> : 
-               s === 1 ? <PlayIcon size={12} /> : 
+              {s === 0 ? <PauseIcon size={12} /> :
+               s === 1 ? <PlayIcon size={12} /> :
                s === 2 ? (
                  <div className="flex items-center -space-x-[5px]">
                    <PlayIcon size={12} />
@@ -226,34 +232,34 @@ export const TopBar = React.memo(function TopBar() {
           ))}
         </div>
       </div>
-      
+
       <div className="flex items-center gap-3">
         <StatBadge value={stats.population.toLocaleString()} label={String(m(UI_LABELS.population))} />
         <StatBadge value={stats.jobs.toLocaleString()} label={String(m(UI_LABELS.jobs))} />
-        <StatBadge 
-          value={`$${stats.money.toLocaleString()}`} 
+        <StatBadge
+          value={formatCurrency(stats.money)}
           label={String(m(UI_LABELS.funds))}
           variant={stats.money < 0 ? 'destructive' : stats.money < 1000 ? 'warning' : 'success'}
         />
       </div>
-      
+
       <div className="flex items-center gap-2">
-        <StatBadge 
-          value={`$${(stats.income - stats.expenses).toLocaleString()}`} 
+        <StatBadge
+          value={formatCurrency(stats.income - stats.expenses)}
           label={String(m(UI_LABELS.monthly))}
           variant={stats.income - stats.expenses >= 0 ? 'success' : 'destructive'}
         />
-        
+
         <Separator orientation="vertical" className="h-8" />
-        
+
         <div className="flex items-center gap-1.5">
           <DemandIndicator label="R" demand={stats.demand.residential} color="text-green-500" />
           <DemandIndicator label="C" demand={stats.demand.commercial} color="text-blue-500" />
           <DemandIndicator label="I" demand={stats.demand.industrial} color="text-amber-500" />
         </div>
-        
+
         <Separator orientation="vertical" className="h-8" />
-        
+
         <div className="flex items-center gap-1.5">
           <span className="text-muted-foreground text-xs">{m(UI_LABELS.tax)}</span>
           <Slider
@@ -266,7 +272,7 @@ export const TopBar = React.memo(function TopBar() {
           />
           <span className="text-foreground text-xs font-mono tabular-nums w-7">{taxRate}%</span>
         </div>
-        
+
         <Separator orientation="vertical" className="h-8" />
 
         <Button

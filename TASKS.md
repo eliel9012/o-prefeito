@@ -75,10 +75,18 @@
 - [x] Gerar concept da Câmara Municipal.
 - [x] Gerar concept da UBS / Posto de Saúde.
 - [x] Gerar concept da Escola Municipal.
-- [x] Gerar concept de Buraco na rua (evento).
-- [ ] Aprovar/rejeitar concepts visualmente.
-- [ ] Gerar concept de enchente e obra parada.
+- [x] Gerar concept de Buraco na rua (v2, com acento ATENÇÃO).
+- [x] Gerar concept de Enchente.
+- [x] Gerar concept de Obra parada.
+- [x] Gerar concept de Casa popular.
+- [x] Todos os 8 concepts aprovados pelo usuário.
 - [ ] Processar e integrar assets aprovados no jogo.
 
-### Milestone 7 — Revisão de arquitetura
-- [ ] Revisão de arquitetura pelo Mistral Medium 3.5 via Aider.
+### Milestone 7 — Revisão de arquitetura (2026-06-20)
+- [x] Revisão de arquitetura pelo Mistral Medium 3.5 via Aider.
+- [x] Fix: `useEventosBrasileiros` — remover `state` inteiro do deps (usar só `state.month`/`state.year`); pattern com useRef.
+- [x] Fix: `municipalBudget` — proteção contra valores negativos (`Math.max(0, ...)`); refatorar para `OrcamentoService` com `IndicadoresMunicipais`.
+- [x] Fix: `eventosBrasileiros` — refatorar para `EventoService` com `EventoMunicipal`; restaurar 8 eventos.
+- [x] Fix: `MunicipalPanel` — importar `IndicadoresMunicipais` dos tipos; mover `formatCurrency` para local.
+- [x] Fix: `TopBar` — meses em PT-BR; `formatCurrency` local; remover código morto.
+- [x] Build confirmado pós-Milestone 7.
